@@ -19,6 +19,9 @@ public class Credit extends GenericModel {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "percentage")
     private Double percentage;
 
@@ -30,5 +33,8 @@ public class Credit extends GenericModel {
 
     @Column(name = "max_duration")
     private Integer maxDuration;
+
+    @Column(name = "is_with_deposit")
+    private boolean isWithDeposit;
 
 }

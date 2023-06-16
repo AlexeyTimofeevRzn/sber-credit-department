@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-@Configuration
+//@Configuration
 public class ThymeleafHotSwap {
     private final ThymeleafProperties thymeleafProperties;
 

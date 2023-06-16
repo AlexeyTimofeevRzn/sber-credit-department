@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Список кредитных предложений</title>
+    <link href="css/styles.css">
+    <style>
+        .text {
+            text-align: center;
+            font-size: 34px;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="icon" href="favicon.ico" type=”image/x-icon”>
+    <!--    <script th:inline="javascript">-->
+    <!--        let flag = [[${exception}]]; //переменная-флаг Thymeleaf-->
+    <!--        window.onload = () => {-->
+    <!--            if (flag) new bootstrap.Modal(document.getElementById('deleteErrorModal'), {keyboard: false}).show()-->
+    <!--        };-->
+    <!--    </script>-->
+</head>
+<body>
+<div layout:fragment="content">
+    <hr class="mt-3 hr"/>
+    <h1 class="text">Кредитные предложения</h1>
+    <div class="row">
+        <div class="mt-5">
+            <div th:each="credit : ${credits}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${credit.getName()}"></h5>
+                    <span class="badge bg-success" th:if="${!credit.isWithDeposit()}">Без залогов</span>
+                    <span class="badge bg-secondary" th:if="${credit.isWithDeposit()}">С залогом</span>
+                    <p class="card-text" th:text="${credit.getDescription()}"></p>
+                    <a th:href="'/credits/' + ${credit.getId()}" class="btn btn-primary">Подробнее</a>
+                </div>
+
+                <hr/>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

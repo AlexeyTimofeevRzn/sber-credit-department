@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "requests")
 @Entity
@@ -19,7 +21,7 @@ public class Request extends GenericModel {
     private User user;
 
     @Column(name = "date_of_request")
-    private Date dateOfRequest;
+    private LocalDateTime dateOfRequest;
 
     @Column(name = "duration")
     private Integer duration;

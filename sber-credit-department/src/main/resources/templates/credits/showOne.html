@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${credit.getName()}"></title>
+    <style>
+        .text {
+            text-align: center;
+            font-size: 34px;
+            font-weight: bold;
+        }
+    </style>
+    <!--    <script th:inline="javascript">-->
+    <!--        let flag = [[${exception}]]; //переменная-флаг Thymeleaf-->
+    <!--        window.onload = () => {-->
+    <!--            if (flag) new bootstrap.Modal(document.getElementById('deleteErrorModal'), {keyboard: false}).show()-->
+    <!--        };-->
+    <!--    </script>-->
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="text">
+        <p th:text="${credit.getName()}"></p>
+    </div>
+    <hr/>
+    <div>
+        <h1>Описание</h1>
+        <p th:text="${credit.getDescription()}" style="font-size: 23px"></p>
+    </div>
+
+    <button type="button" class="btn btn-outline-primary" href="/requests/new">Подать заявку</button>
+
+</div>
+</body>
+</html>
