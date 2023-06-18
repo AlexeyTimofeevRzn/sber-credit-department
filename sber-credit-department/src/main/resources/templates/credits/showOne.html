@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${credit.getName()}"></title>
+    <title th:text="${creditDTO.getName()}"></title>
     <style>
         .text {
             text-align: center;
@@ -23,16 +23,26 @@
 <body>
 <div layout:fragment="content">
     <div class="text">
-        <p th:text="${credit.getName()}"></p>
+        <p th:text="${creditDTO.getName()}"></p>
     </div>
     <hr/>
     <div>
         <h1>Описание</h1>
-        <p th:text="${credit.getDescription()}" style="font-size: 23px"></p>
+        <p th:text="${creditDTO.getDescription()}" style="font-size: 23px"></p>
     </div>
 
-    <button type="button" class="btn btn-outline-primary" href="/requests/new">Подать заявку</button>
+<!--    <form th:href="'requests/new'" th:method="GET">-->
+<!--        <div>-->
+<!--            <button type="button" class="btn btn-outline-primary"><a href="requests/new">Подать заявку</a></button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+    <div>
+<!--        <button type="button" class="btn btn-outline-primary"><a th:href="${creditDTO.getId()} + '/request/new'">Подать заявку</a></button>-->
+        <a class="text-link text-blue" th:href="${creditDTO.getId()} + '/request/new'" th:text="'Подать заявку'"></a>
+    </div>
 
 </div>
+
 </body>
 </html>

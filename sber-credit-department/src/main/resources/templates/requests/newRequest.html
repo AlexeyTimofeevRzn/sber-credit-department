@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="'Новая заявка на ' + ${creditDTO.getName()}"></title>
+    <style>
+        .text {
+            text-align: center;
+            font-size: 34px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-
+<div layout:fragment="content">
+    <h3 class="text">Новая заявка</h3>
+    <h3 class="text" th:text="${creditDTO.getName()}"></h3>
+    <h3 style="font-size: 23px" th:text="${creditDTO.getDescription()}"></h3>
+    <form  class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/requests/new}" th:object="${formRequest}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
+                    <input name="duration" type="text" class="form-control" id="duration" placeholder="Срок креждита" required>
+                    <label for="duration">Срок кредита (в месяцах)</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <textarea name="monthlyPayment" type="text" class="form-control" id="monthlyPayment" placeholder="Ежемесячный платеж"></textarea>
+                    <label for="monthlyPayment">Максимальный ежемесячный платеж</label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <textarea name="requiredDebt" type="text" class="form-control" id="requiredDebt" placeholder="Сумма кредита"></textarea>
+                    <label for="requiredDebt">Сумма кредита</label>
+                </div>
+            </div>
+        </div>
+<!--        <div hidden="hidden">-->
+<!--&lt;!&ndash;            <div class="col-md">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="form-floating">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <textarea name="credit" type="text" class="form-control" id="credit" placeholder="Тип кредита"></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="credit" th:value="${creditDTO.getId()}"></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <input>-->
+<!--        </div>-->
+        <input name="credit" type="hidden" class="form-control" id="credit" th:value="${creditDTO.getId()}">
+        <div class="mt-3 row g-2">
+            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

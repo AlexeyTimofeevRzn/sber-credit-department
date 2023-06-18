@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Заявка №' + ${request.getId()}"></title>
+    <style>
+        .text {
+            text-align: center;
+            font-size: 34px;
+            font-weight: bold;
+        }
+    </style>
+    <!--    <script th:inline="javascript">-->
+    <!--        let flag = [[${exception}]]; //переменная-флаг Thymeleaf-->
+    <!--        window.onload = () => {-->
+    <!--            if (flag) new bootstrap.Modal(document.getElementById('deleteErrorModal'), {keyboard: false}).show()-->
+    <!--        };-->
+    <!--    </script>-->
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="text">
+        <p th:text="'Заявка на кредитное предложение: ' + ${request.getCredit().getName()}"></p>
+    </div>
+    <hr/>
+    <div>
+        <h1>Описание</h1>
+        <h5 class="card-title"
+            th:text="'Заявитель: ' + ${request.getUser().getFirstName()} + ' ' + ${request.getUser().getMiddleName()} + ' ' + ${request.getUser().getLastName()}"></h5>
+        <p class="card-text" th:text="'Сумма кредита: ' + ${request.getRequiredDebt()}"></p>
+        <p class="card-text" th:text="'Срок кредита: ' + ${request.getDuration()}"></p>
+        <p class="card-text" th:text="'Ежемесячный платеж ' + ${request.getMonthlyPayment()}"></p>
+        <p class="card-text" th:text="'Дата заявки: ' + ${request.getDateOfRequest()}"></p>
+    </div>
+
+<!--    <form th:href="'/requests/accept/' + ${request.getId()}" method="POST">-->
+<!--        <button type="submit" class="btn btn-outline-primary"><a>Одобрить заявку</a></button>-->
+<!--    </form>-->
+
+<!--    <form th:href="'/requests/decline/' + ${request.getId()}" method="POST">-->
+<!--        <button type="submit" class="btn btn-outline-danger"><a>Отклонить заявку</a></button>-->
+<!--    </form>-->
+
+    <button type="submit" class="btn btn-outline-primary"><a th:href="'/requests/accept/' + ${request.getId()}">Одобрить заявку</a></button>
+    <button type="submit" class="btn btn-outline-danger"><a th:href="'/requests/decline/' + ${request.getId()}">Отклонить заявку</a></button>
+
+</div>
+
+</body>
+</html>

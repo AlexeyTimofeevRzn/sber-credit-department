@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "users")
 @Entity
@@ -17,16 +18,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User extends GenericModel {
 
-    @Column(name = "login", nullable = false)
+    @Column(name = "login")
     private String login;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "middle_name")
@@ -45,13 +46,16 @@ public class User extends GenericModel {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false,
+    @JoinColumn(name = "role_id",
             foreignKey = @ForeignKey(name = "FK_USERS_ROLE"))
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "client_status", nullable = false,
+    @JoinColumn(name = "client_status",
             foreignKey = @ForeignKey(name = "FK_USERS_CLIENT_STATUS"))
     private ClientStatus clientStatus;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<CreditContract> contracts;
 
 }

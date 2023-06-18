@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class RequestDTO {
+public class RequestDTO extends GenericDTO {
+
+    private int user;
 
     private LocalDateTime dateOfRequest = LocalDateTime.now();
 
@@ -18,6 +20,8 @@ public class RequestDTO {
     private double monthlyPayment;
 
     private int requiredDebt;
+
+    private String status;
 
     private int credit;
 

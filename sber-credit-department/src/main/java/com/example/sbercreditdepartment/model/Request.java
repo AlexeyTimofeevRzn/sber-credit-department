@@ -1,5 +1,6 @@
 package com.example.sbercreditdepartment.model;
 
+import com.example.sbercreditdepartment.enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Request extends GenericModel {
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false,
+    @JoinColumn(name = "user_id",
         foreignKey = @ForeignKey(name = "FK_REQUESTS_USER"))
     private User user;
 
@@ -32,12 +33,13 @@ public class Request extends GenericModel {
     @Column(name = "required_debt")
     private Integer requiredDebt;
 
+    @Column(name = "request_status")
+    @Enumerated(value = EnumType.STRING)
+    private RequestStatus requestStatus;
+
     @ManyToOne
     @JoinColumn(name = "credit_type", nullable = false,
     foreignKey = @ForeignKey(name = "FK_REQUESTS_CREDIT_TYPE"))
     private Credit credit;
-
-    @Column(name = "is_accepted", columnDefinition = "boolean default false")
-    private boolean isAccepted;
 
 }
