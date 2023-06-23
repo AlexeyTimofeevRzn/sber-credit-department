@@ -32,14 +32,15 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="'Заявитель: ' + ${request.getUser().getFirstName()} + ' ' + ${request.getUser().getMiddleName()} + ' ' + ${request.getUser().getLastName()}"></h5>
                     <p class="card-text" th:text="'Кредитная программа: ' + ${request.getCredit().getName()}"></p>
-                    <p class="card-text" th:text="'Сумма кредита: ' + ${request.getRequiredDebt()}"></p>
+<!--                    <p class="card-text" th:text="'Сумма кредита: ' + ${request.getRequiredDebt()}"></p>-->
+                    <p class="card-text" th:text="'Максимальный одобренный долг: ' + ${request.getMaximumDebt()}"></p>
                     <p class="card-text" th:text="'Срок кредита: ' + ${request.getDuration()}"></p>
                     <p class="card-text" th:text="'Ежемесячный платеж ' + ${request.getMonthlyPayment()}"></p>
                     <p class="card-text" th:text="'Дата заявки: ' + ${request.getDateOfRequest()}"></p>
                     <span class="badge bg-secondary" th:if="${request.getRequestStatus().getValue().equals('Considered')}">На рассмотрении</span>
                     <span class="badge bg-danger" th:if="${request.getRequestStatus().getValue().equals('Declined')}">Отклонено</span>
                     <span class="badge bg-success" th:if="${request.getRequestStatus().getValue().equals('Accepted')}">Одобрено</span>
-                    <a th:href="'/requests/' + ${request.getId()}" class="btn btn-primary" th:if="${request.getRequestStatus().getValue().equals('Considered')}">Подробнее</a>
+                    <a th:href="'/requests/' + ${request.getId()}" class="btn btn-primary" th:if="${!request.getRequestStatus().getValue().equals('Declined')}">Подробнее</a>
                 </div>
 
                 <hr/>

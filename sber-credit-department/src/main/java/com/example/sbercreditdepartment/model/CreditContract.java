@@ -41,6 +41,6 @@ public class CreditContract extends GenericModel {
     @ManyToOne
     @JoinColumn(name = "manager_id", nullable = false,
             foreignKey = @ForeignKey(name = "FK_CREDIT_CONTRACTS_MANAGER"))
-    private User manager;
+    private Manager manager;
 
 }

@@ -19,7 +19,7 @@ public class ClientStatus extends GenericModel {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "income_to_get", nullable = false)
-    private Integer incomeToGet;
+    @Column(name = "coefficient_to_get", nullable = false)
+    private Double coefficientToGet;
 
 }

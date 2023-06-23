@@ -30,8 +30,8 @@ public class Request extends GenericModel {
     @Column(name = "monthly_payment")
     private Double monthlyPayment;
 
-    @Column(name = "required_debt")
-    private Integer requiredDebt;
+    @Column(name = "maximum_debt")
+    private Double maximumDebt;
 
     @Column(name = "request_status")
     @Enumerated(value = EnumType.STRING)

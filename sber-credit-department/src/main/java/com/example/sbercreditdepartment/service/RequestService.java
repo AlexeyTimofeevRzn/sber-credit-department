@@ -2,6 +2,7 @@ package com.example.sbercreditdepartment.service;
 
 import com.example.sbercreditdepartment.dto.RequestDTO;
 import com.example.sbercreditdepartment.enums.RequestStatus;
+import com.example.sbercreditdepartment.model.Credit;
 import com.example.sbercreditdepartment.model.Request;
 import com.example.sbercreditdepartment.repository.CreditRepository;
 import com.example.sbercreditdepartment.repository.RequestRepository;
@@ -51,14 +52,24 @@ public class RequestService {
 
     public void saveRequest(RequestDTO dto) {
         Request request = requestMapper.toEntity(dto);
-        if (((dto.getRequiredDebt() + 1.0) / dto.getDuration()) > dto.getMonthlyPayment()) {
-            request.setRequestStatus(RequestStatus.DECLINED);
-        } else{
-          request.setRequestStatus(RequestStatus.CONSIDERED);
-        }
+        // Тут устанавливается статус по заявке
+        request.setRequestStatus(RequestStatus.CONSIDERED);
+        // Тут сеттится максимальный долг по запросу
+        request.setMaximumDebt(this.calculateMaximumDebt(dto));
         // Заглушка (потом тут будет пользователь)
         request.setUser(userRepository.findById(1).orElseThrow(RuntimeException::new));
         request.setCredit(creditRepository.findById(dto.getCredit()).orElseThrow(RuntimeException::new));
         requestRepository.save(request);
+    }
+
+    // Метод для расчета финального долга
+    private double calculateMaximumDebt(RequestDTO dto) {
+        int creditType = dto.getCredit();
+        Credit credit = creditRepository.findById(creditType).orElseThrow(RuntimeException::new);
+        double monthlyPayment = dto.getMonthlyPayment();
+        int duration = dto.getDuration();
+        double percentagePerMonth = credit.getPercentage() / (100 * 12);
+
+        return monthlyPayment * (1 - Math.pow(1 + percentagePerMonth, -duration)) / percentagePerMonth;
     }
 }

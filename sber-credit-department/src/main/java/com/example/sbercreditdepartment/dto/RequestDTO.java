@@ -19,8 +19,8 @@ public class RequestDTO extends GenericDTO {
 
     private double monthlyPayment;
 
-    private int requiredDebt;
-
+//    private int requiredDebt;
+    private double maximumDebt;
     private String status;
 
     private int credit;

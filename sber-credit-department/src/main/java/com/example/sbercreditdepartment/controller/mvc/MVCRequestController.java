@@ -1,9 +1,13 @@
 package com.example.sbercreditdepartment.controller.mvc;
 
+import com.example.sbercreditdepartment.dto.CreditContractDTO;
 import com.example.sbercreditdepartment.dto.CreditDTO;
 import com.example.sbercreditdepartment.dto.RequestDTO;
+import com.example.sbercreditdepartment.model.CreditContract;
+import com.example.sbercreditdepartment.model.Request;
 import com.example.sbercreditdepartment.service.CreditService;
 import com.example.sbercreditdepartment.service.RequestService;
+import com.example.sbercreditdepartment.utils.mapper.CreditContractMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +51,15 @@ public class MVCRequestController {
     public String declineRequest(@PathVariable("id") int id) {
         requestService.declineRequest(requestService.getOneRequest(id));
         return "redirect:/requests/all";
+    }
+
+    @GetMapping("/sign/{id}")
+    public String signRequest(@PathVariable("id") int id, Model model) {
+        Request request = requestService.getOneRequest(id);
+        model.addAttribute("request", request);
+        model.addAttribute("credit", request.getCredit());
+        model.addAttribute("formCreditContract", new CreditContractDTO());
+        return "creditContracts/newContract";
     }
 
     @PostMapping("/new")
