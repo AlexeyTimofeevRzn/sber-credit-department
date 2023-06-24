@@ -3,6 +3,7 @@ package com.example.sbercreditdepartment.controller.mvc;
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
 import com.example.sbercreditdepartment.dto.CreditDTO;
 import com.example.sbercreditdepartment.dto.RequestDTO;
+import com.example.sbercreditdepartment.dto.TwoDatesDTO;
 import com.example.sbercreditdepartment.model.CreditContract;
 import com.example.sbercreditdepartment.model.Request;
 import com.example.sbercreditdepartment.service.CreditService;
@@ -39,6 +40,20 @@ public class MVCRequestController {
     public String getOneRequest(@PathVariable("id") int id, Model model) {
         model.addAttribute(requestService.getOneRequest(id));
         return "requests/showOne";
+    }
+
+    @GetMapping("/overview/betweenTwoDates")
+    public String getRequestsBetweenTwoDates(Model model) {
+        model.addAttribute("twoDatesDTO", new TwoDatesDTO());
+        return "overview/requestsBetweenTwoDates";
+    }
+
+    @PostMapping("/overview/betweenTwoDates")
+    public String getRequestsBetweenTwoDates(@ModelAttribute("twoDatesDTO") TwoDatesDTO dto, Model model) {
+        model.addAttribute("start", dto.getStartDate());
+        model.addAttribute("end", dto.getEndDate());
+        model.addAttribute("requests", requestService.getRequestsBetweenTwoDates(dto));
+        return "overview/requestsBetweenTwoDates";
     }
 
     @GetMapping("/accept/{id}")

@@ -35,18 +35,22 @@
     <form  class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/creditContracts/save}" th:object="${formCreditContract}">
         <div class="col-md">
             <div class="form-floating">
-                <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
-<!--                <input name="duration" type="range" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" class="form-control" id="duration" placeholder="Срок креждита" required>-->
-<!--                <label for="duration">Срок кредита (в месяцах)</label>-->
-<!--                <div class="invalid-feedback">Обязательное поле для заполнения</div>-->
-
-<!--                <label for="currentDebt" class="form-label"></label>-->
-<!--                <input type="range" class="form-range" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" th:step="(${request.getMaximumDebt()} - ${credit.getMinimalSum()}) / 10" id="currentDebt">-->
-<!--                <p>Сумма кредита: <output id="value"></output></p>-->
                 <label for="currentDebt"></label>
-                <input type="range" class="form-range" id="currentDebt" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" th:step="(${request.getMaximumDebt()} - ${credit.getMinimalSum()}) / 10">
+                <input name="currentDebt" type="range" class="form-range" id="currentDebt" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" th:step="(${request.getMaximumDebt()} - ${credit.getMinimalSum()}) / 15">
                 <p>Сумма кредита: <span id="currentValue"></span></p>
             </div>
+        </div>
+        <div>
+            <input name="credit" type="hidden" class="form-control" id="credit" th:value="${credit.getId()}">
+        </div>
+        <div>
+            <input name="manager" type="hidden" class="form-control" id="manager" th:value="3">
+        </div>
+        <div>
+            <input name="user" type="hidden" class="form-control" id="user" th:value="${request.getUser().getId()}">
+        </div>
+        <div>
+            <input name="duration" type="hidden" class="form-control" id="duration" th:value="${request.getDuration()}">
         </div>
         <hr/>
         <div class="mt-3 row g-2">
