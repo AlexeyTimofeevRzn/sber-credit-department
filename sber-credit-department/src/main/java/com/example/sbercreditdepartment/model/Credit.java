@@ -37,4 +37,7 @@ public class Credit extends GenericModel {
     @Column(name = "is_with_deposit")
     private boolean isWithDeposit;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
 }

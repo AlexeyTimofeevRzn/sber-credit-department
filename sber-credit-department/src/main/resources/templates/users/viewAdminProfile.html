@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .text {
+            text-align: center;
+            font-size: 34px;
+            font-weight: bold;
+        }
+    </style>
+    <!--    <script th:inline="javascript">-->
+    <!--        let flag = [[${exception}]]; //переменная-флаг Thymeleaf-->
+    <!--        window.onload = () => {-->
+    <!--            if (flag) new bootstrap.Modal(document.getElementById('deleteErrorModal'), {keyboard: false}).show()-->
+    <!--        };-->
+    <!--    </script>-->
+</head>
+<body>
+<div layout:fragment="content">
+    <a href="/requests/overview/betweenTwoDates">Заявки за определенный период</a>
+    <a href="/creditContracts/overview/betweenTwoDates">Заявки за определенный период</a>
+</div>
+
+</body>
+</html>

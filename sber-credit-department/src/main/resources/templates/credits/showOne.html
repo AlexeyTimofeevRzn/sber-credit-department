@@ -2,6 +2,7 @@
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +40,7 @@
 
     <div>
 <!--        <button type="button" class="btn btn-outline-primary"><a th:href="${creditDTO.getId()} + '/request/new'">Подать заявку</a></button>-->
-        <a class="text-link text-blue" th:href="${creditDTO.getId()} + '/request/new'" th:text="'Подать заявку'"></a>
+        <a class="text-link text-blue" sec:authorize="isAuthenticated() && hasRole('USER')" th:href="${creditDTO.getId()} + '/request/new'" th:text="'Подать заявку'"></a>
     </div>
 
 </div>

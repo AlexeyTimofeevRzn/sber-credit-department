@@ -1,6 +1,7 @@
 package com.example.sbercreditdepartment.controller.mvc;
 
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
+import com.example.sbercreditdepartment.dto.TwoDatesDTO;
 import com.example.sbercreditdepartment.service.CreditContractService;
 import lombok.experimental.PackagePrivate;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,20 @@ public class MVCCreditContractsController {
     public String getCreditContracts(Model model) {
         model.addAttribute("contracts", creditContractService.getAllContracts());
         return "creditContracts/viewAllContracts";
+    }
+
+    @GetMapping("/overview/betweenTwoDates")
+    public String getContractsBetweenTwoDates(Model model) {
+        model.addAttribute("twoDatesDTO", new TwoDatesDTO());
+        return "overview/contractsBetweenTwoDates";
+    }
+
+    @PostMapping("/overview/betweenTwoDates")
+    public String getContractsBetweenTwoDates(@ModelAttribute("twoDatesDTO") TwoDatesDTO dto, Model model) {
+        model.addAttribute("start", dto.getStartDate());
+        model.addAttribute("end", dto.getEndDate());
+        model.addAttribute("contracts", creditContractService.getContractsBetweenTwoDates(dto));
+        return "overview/contractsBetweenTwoDates";
     }
 
     @GetMapping("/{id}")

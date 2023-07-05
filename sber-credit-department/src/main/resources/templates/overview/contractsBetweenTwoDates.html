@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Заявки</title>
+    <script>
+        function getSelectedDates() {
+            var startDateInput = document.getElementById("startDate");
+            var endDateInput = document.getElementById("endDate");
+
+            var startDate = startDateInput.value;
+            var endDate = endDateInput.value;
+
+            alert("Выбранный промежуток: " + startDate + " - " + endDate);
+        }
+    </script>
 </head>
 <body>
+<div layout:fragment="content">
+    <h1>Выбор промежутка между датами</h1>
 
+    <form method="POST" th:action="@{/creditContracts/overview/betweenTwoDates}" th:object="${twoDatesDTO}">
+        <label for="startDate">Начальная дата:</label>
+        <input type="date" name="startDate" id="startDate">
+
+        <label for="endDate">Конечная дата:</label>
+        <input type="date" name="endDate" id="endDate">
+
+        <button type="submit" onclick="getSelectedDates()">Показать заявки за этот промежуток</button>
+    </form>
+
+    <h1 th:if="${start != null}" th:text="'Заявки за период с ' + ${start} + ' по ' + ${end}"></h1>
+
+    <div class="row">
+        <div class="mt-5">
+            <div th:each="contract : ${contracts}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Контракт на кредитное предложение: ' + ${contract.getCredit().getName()}"></h5>
+                    <p class="card-text" th:text="'Заемщик: ' + ${contract.getUser().getMiddleName()} + ' ' + ${contract.getUser().getFirstName()} + ' ' + ${contract.getUser().getLastName()}"></p>
+                    <p class="card-text" th:text="'Менеджер: ' + ${contract.getManager().getMiddleName()} + ' ' + ${contract.getManager().getFirstName()} + ' ' + ${contract.getManager().getLastName()}"></p>
+                    <p class="card-text" th:text="'Текущий долг: ' + ${contract.getCurrentDebt()}"></p>
+                    <p class="card-text" th:text="'Ежемесячный платеж: ' + ${contract.getMonthlyPayment()}"></p>
+                    <p class="card-text" th:text="'Срок кредита: ' + ${contract.getDuration()}"></p>
+                    <p class="card-text" th:text="'Дата начала контракта: ' + ${contract.getStartDate()}"></p>
+                    <a th:href="'/creditContracts/' + ${contract.getId()}" class="btn btn-primary">Подробнее</a>
+                </div>
+
+                <hr/>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 package com.example.sbercreditdepartment.service;
 
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
+import com.example.sbercreditdepartment.dto.TwoDatesDTO;
 import com.example.sbercreditdepartment.model.CreditContract;
 import com.example.sbercreditdepartment.repository.CreditContractRepository;
 import com.example.sbercreditdepartment.utils.mapper.CreditContractMapper;
-import com.example.sbercreditdepartment.utils.mapper.CreditContractMapperSMP;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +14,9 @@ public class CreditContractService {
 
     private final CreditContractRepository creditContractRepository;
 
-    private final CreditContractMapperSMP creditContractMapper;
+    private final CreditContractMapper creditContractMapper;
 
-    public CreditContractService(CreditContractRepository creditContractRepository, CreditContractMapperSMP creditContractMapper) {
+    public CreditContractService(CreditContractRepository creditContractRepository, CreditContractMapper creditContractMapper) {
         this.creditContractRepository = creditContractRepository;
         this.creditContractMapper = creditContractMapper;
     }
@@ -27,6 +27,10 @@ public class CreditContractService {
 
     public CreditContract getContract(int id) {
         return creditContractRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public List<CreditContract> getContractsBetweenTwoDates(TwoDatesDTO dto) {
+        return creditContractRepository.getCreditContractBetweenTwoDates(dto.getStartDate(), dto.getEndDate());
     }
 
     public void saveContract(CreditContractDTO dto) {

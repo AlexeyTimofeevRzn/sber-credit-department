@@ -21,6 +21,10 @@ public class Request extends GenericModel {
         foreignKey = @ForeignKey(name = "FK_REQUESTS_USER"))
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "FK_REQUESTS_MANAGER"))
+    private Manager manager;
+
     @Column(name = "date_of_request")
     private LocalDateTime dateOfRequest;
 

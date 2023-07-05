@@ -25,12 +25,13 @@
 <body>
 <div layout:fragment="content">
     <hr class="mt-3 hr"/>
+    <a href="/creditContracts/overview/betweenTwoDates">Кредитные договоры, заключенные за определенный период</a>
     <h1 class="text">Кредитные договоры</h1>
     <div class="row">
         <div class="mt-5">
             <div th:each="contract : ${contracts}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="'Контракт на кредитное предложение: ' + ${contract.getCredit.getName()}"></h5>
+                    <h5 class="card-title" th:text="'Контракт на кредитное предложение: ' + ${contract.getCredit().getName()}"></h5>
                     <p class="card-text" th:text="'Заемщик: ' + ${contract.getUser().getMiddleName()} + ' ' + ${contract.getUser().getFirstName()} + ' ' + ${contract.getUser().getLastName()}"></p>
                     <p class="card-text" th:text="'Менеджер: ' + ${contract.getManager().getMiddleName()} + ' ' + ${contract.getManager().getFirstName()} + ' ' + ${contract.getManager().getLastName()}"></p>
                     <p class="card-text" th:text="'Текущий долг: ' + ${contract.getCurrentDebt()}"></p>

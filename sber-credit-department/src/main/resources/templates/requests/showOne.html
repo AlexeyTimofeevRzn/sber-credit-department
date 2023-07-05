@@ -2,6 +2,7 @@
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -36,12 +37,12 @@
         <p class="card-text" th:text="'Максимальный одобренный долг: ' + ${request.getMaximumDebt()}"></p>
     </div>
 
-    <div th:if="${request.getRequestStatus().getValue().equals('Considered')}">
+    <div sec:authorize="isAuthenticated() && hasRole('MANAGER')" th:if="${request.getRequestStatus().getValue().equals('Considered')}">
         <button type="submit" class="btn btn-outline-primary"><a th:href="'/requests/accept/' + ${request.getId()}">Одобрить заявку</a></button>
         <button type="submit" class="btn btn-outline-danger"><a th:href="'/requests/decline/' + ${request.getId()}">Отклонить заявку</a></button>
     </div>
 
-    <div th:if="${request.getRequestStatus().getValue().equals('Accepted')}">
+    <div sec:authorize="isAuthenticated() && hasRole('USER')" th:if="${request.getRequestStatus().getValue().equals('Accepted')}">
         <a type="submit" class="btn btn-outline-primary" th:href="@{/requests/sign/{id}(id=${request.getId()})}">Подписать контракт</a>
     </div>
 <!--    <button type="submit" class="btn btn-outline-primary"><a th:href="'/requests/accept/' + ${request.getId()}">Одобрить заявку</a></button>-->

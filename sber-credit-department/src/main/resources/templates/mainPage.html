@@ -2,6 +2,7 @@
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
   <meta charset="UTF-8">
@@ -28,6 +29,17 @@
 
   <div>
     <p class="text">Данный сайт содержит информацию обо всех актуальных кредитных предложениях нашего банка</p>
+  </div>
+
+  <div>
+    <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" href="users/all">Список клиентов</a>
+  </div>
+
+  <div>
+    <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" href="managers/all">Список менеджеров</a>
+  </div>
+
+  <div>
   </div>
 </div>
 </body>

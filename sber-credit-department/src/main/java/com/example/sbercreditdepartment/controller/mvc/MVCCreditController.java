@@ -5,10 +5,7 @@ import com.example.sbercreditdepartment.dto.RequestDTO;
 import com.example.sbercreditdepartment.service.CreditService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,8 +30,13 @@ public class MVCCreditController {
     public String getOneCredit(@PathVariable("id") int id, Model model, RedirectAttributes redirectAttributes) {
         CreditDTO dto = creditService.getOneCredit(id);
         model.addAttribute("creditDTO", dto);
-//        redirectAttributes.addFlashAttribute("creditDTO", dto);
         return "credits/showOne";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteOneCredit(@PathVariable("id") int id) {
+        creditService.softDelete(id);
+        return "redirect:/credits/getAll";
     }
 
     @GetMapping("/{id}/request/new")
@@ -44,5 +46,11 @@ public class MVCCreditController {
         model.addAttribute("formRequest", dto);
         model.addAttribute("creditDTO", creditService.getOneCredit(id));
         return "requests/newRequest";
+    }
+
+    @GetMapping("/add")
+    public String addCredit(Model model) {
+        model.addAttribute("formCredit", new CreditDTO());
+        return "credits/newCredit";
     }
 }

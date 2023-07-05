@@ -1,6 +1,8 @@
 package com.example.sbercreditdepartment.service;
 
 import com.example.sbercreditdepartment.dto.CreditDTO;
+import com.example.sbercreditdepartment.exception.CreditNotFoundException;
+import com.example.sbercreditdepartment.model.Credit;
 import com.example.sbercreditdepartment.repository.CreditRepository;
 import com.example.sbercreditdepartment.utils.mapper.CreditMapper;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,16 @@ public class CreditService {
     }
 
     public List<CreditDTO> getAllCredits() {
-        return creditMapper.toDTOs(creditRepository.findAll());
+        return creditMapper.toDTOs(creditRepository.findCreditsNotDeleted());
     }
 
     public CreditDTO getOneCredit(int id) {
         return creditMapper.toDTO(creditRepository.findById(id).orElseThrow(RuntimeException::new));
+    }
+
+    public void softDelete(int id) {
+        Credit credit = creditRepository.findById(id).orElseThrow(CreditNotFoundException::new);
+        credit.setDeleted(true);
+        creditRepository.save(credit);
     }
 }

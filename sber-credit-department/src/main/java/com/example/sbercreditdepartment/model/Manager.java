@@ -48,4 +48,6 @@ public class Manager extends GenericModel {
     @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<CreditContract> contracts;
 
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
+    private List<Request> requests;
 }

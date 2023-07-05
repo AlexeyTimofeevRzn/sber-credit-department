@@ -12,11 +12,9 @@ import java.time.LocalDateTime;
 public class RequestDTO extends GenericDTO {
 
     private int user;
-
+    private int manager;
     private LocalDateTime dateOfRequest = LocalDateTime.now();
-
     private int duration;
-
     private double monthlyPayment;
     private int maximumDebt;
     private String status;

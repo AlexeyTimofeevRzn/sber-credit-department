@@ -2,6 +2,7 @@
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -35,6 +36,7 @@
                     <span class="badge bg-secondary" th:if="${credit.isWithDeposit()}">С залогом</span>
                     <p class="card-text" th:text="${credit.getDescription()}"></p>
                     <a th:href="'/credits/' + ${credit.getId()}" class="btn btn-primary">Подробнее</a>
+                    <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" th:href="'/credits/delete/' + ${credit.getId()}" class="btn btn-danger">Удалить кредитное предложение</a>
                 </div>
 
                 <hr/>
@@ -42,6 +44,8 @@
         </div>
 
     </div>
+
+    <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" th:href="'credits/add'">Добавить кредитное предложение</a>
 </div>
 </body>
 </html>

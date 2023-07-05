@@ -1,21 +1,19 @@
 package com.example.sbercreditdepartment.controller.mvc;
 
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
-import com.example.sbercreditdepartment.dto.CreditDTO;
+import com.example.sbercreditdepartment.dto.ManagerDTO;
 import com.example.sbercreditdepartment.dto.RequestDTO;
 import com.example.sbercreditdepartment.dto.TwoDatesDTO;
-import com.example.sbercreditdepartment.model.CreditContract;
+import com.example.sbercreditdepartment.model.Manager;
 import com.example.sbercreditdepartment.model.Request;
 import com.example.sbercreditdepartment.service.CreditService;
+import com.example.sbercreditdepartment.service.ManagerService;
 import com.example.sbercreditdepartment.service.RequestService;
-import com.example.sbercreditdepartment.utils.mapper.CreditContractMapper;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.sbercreditdepartment.service.userdetails.CustomUserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.support.RequestContextUtils;
-
-import java.util.Map;
 
 @Controller
 @RequestMapping("/requests")
@@ -25,9 +23,11 @@ public class MVCRequestController {
 
     private final RequestService requestService;
 
-    public MVCRequestController(CreditService creditService, RequestService requestService) {
+    private final ManagerService managerService;
+    public MVCRequestController(CreditService creditService, RequestService requestService, ManagerService managerService) {
         this.creditService = creditService;
         this.requestService = requestService;
+        this.managerService = managerService;
     }
 
     @GetMapping("/all")
@@ -58,7 +58,10 @@ public class MVCRequestController {
 
     @GetMapping("/accept/{id}")
     public String acceptRequest(@PathVariable("id") int id) {
-        requestService.acceptRequest(requestService.getOneRequest(id));
+        Request request = requestService.getOneRequest(id);
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ManagerDTO manager = managerService.getManager(customUserDetails.getId());
+        requestService.acceptRequest(request, manager);
         return "redirect:/requests/all";
     }
 
