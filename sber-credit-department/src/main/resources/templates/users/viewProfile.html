@@ -35,6 +35,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="'Контракт на кредитное предложение: ' + ${contract.getCredit()}"></h5>
                 <p class="card-text" th:text="'Текущий долг: ' + ${contract.getCurrentDebt()}"></p>
+                <p class="card-text" th:text="'Сумма кредита: ' + ${contract.getCurrentDebt()}"></p>
                 <p class="card-text" th:text="'Ежемесячный платеж: ' + ${contract.getMonthlyPayment()}"></p>
                 <p class="card-text" th:text="'Срок кредита: ' + ${contract.getDuration()}"></p>
                 <p class="card-text" th:text="'Дата начала контракта: ' + ${contract.getStartDate()}"></p>
@@ -44,16 +45,19 @@
             <hr/>
         </div>
     </div>
+
+    <hr/>
+
     <div>
         <p class="card-text">Список кредитных заявок:</p>
-        <div th:each="contract : ${contracts}">
+        <div th:each="request : ${requests}">
             <div class="card-body">
-                <h5 class="card-title" th:text="'Контракт на кредитное предложение: ' + ${contract.getCredit()}"></h5>
-                <p class="card-text" th:text="'Текущий долг: ' + ${contract.getCurrentDebt()}"></p>
-                <p class="card-text" th:text="'Ежемесячный платеж: ' + ${contract.getMonthlyPayment()}"></p>
-                <p class="card-text" th:text="'Срок кредита: ' + ${contract.getDuration()}"></p>
-                <p class="card-text" th:text="'Дата начала контракта: ' + ${contract.getStartDate()}"></p>
-                <a th:href="'/creditContracts/' + ${contract.getId()}" class="btn btn-primary">Подробнее</a>
+                <p class="card-text" th:text="'Кредитная программа: ' + ${request.getCredit().getName()}"></p>
+                <p class="card-text" th:text="'Максимальный одобренный долг: ' + ${request.getMaximumDebt()} + ' рублей'"></p>
+                <p class="card-text" th:text="'Срок кредита: ' + ${request.getDuration()} + ' месяцев'"></p>
+                <p class="card-text" th:text="'Ежемесячный платеж ' + ${request.getMonthlyPayment()} + ' рублей'"></p>
+                <p class="card-text" th:text="'Дата заявки: ' + ${request.getDateOfRequest()}"></p>
+                <a th:href="'/requests/' + ${request.getId()}" class="btn btn-primary">Подробнее</a>
             </div>
 
             <hr/>

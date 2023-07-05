@@ -30,7 +30,7 @@
     <h3 class="text">Заключение договора по кредитному предложению</h3>
     <h3 class="text" th:text="${credit.getName()}"></h3>
     <h3 class="text" th:text="'Срок кредитного договора: ' + ${request.getDuration()} + ' месяцев'"></h3>
-    <h3 class="text" th:text="'Ваш менеджер: ADMIN'"></h3>
+    <h3 class="text" th:text="'Ваш менеджер: ' + ${manager.getFirstName()} + ' ' + ${manager.getMiddleName()} + ' ' + ${manager.getLastName()}"></h3>
 
     <form  class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/creditContracts/save}" th:object="${formCreditContract}">
         <div class="col-md">
@@ -44,7 +44,10 @@
             <input name="credit" type="hidden" class="form-control" id="credit" th:value="${credit.getId()}">
         </div>
         <div>
-            <input name="manager" type="hidden" class="form-control" id="manager" th:value="3">
+            <input name="request" type="hidden" class="form-control" id="request" th:value="${request.getId()}">
+        </div>
+        <div>
+            <input name="manager" type="hidden" class="form-control" id="manager" th:value="${request.getManager().getId()}">
         </div>
         <div>
             <input name="user" type="hidden" class="form-control" id="user" th:value="${request.getUser().getId()}">

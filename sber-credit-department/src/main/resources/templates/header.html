@@ -3,7 +3,7 @@
      th:fragment="header">
   <nav class="navbar navbar-expand-lg" style="background-color: #3cb83e">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/main" style="color: whitesmoke">Кредитный отдел Сбербанка</a>
+      <a class="navbar-brand" href="/" style="color: whitesmoke">Кредитный отдел Сбербанка</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -15,25 +15,25 @@
             <a class="nav-link active" aria-current="page" href="/credits/getAll">Кредиты</a>
           </li>
           <li class="nav-link">
-            <a class="nav-link active" aria-current="page" href="/main/about">Сведения об организации</a>
+            <a class="nav-link active" aria-current="page" href="/about">Сведения об организации</a>
           </li>
-          <li class="nav-link">
+          <li class="nav-link" sec:authorize="isAuthenticated() && hasRole('MANAGER')">
             <a class="nav-link active" aria-current="page" href="/requests/all">Кредитные заявки</a>
           </li>
-          <li class="nav-link">
-            <a class="nav-link active" aria-current="page" href="/creditContracts/all">Текущие кредитные договоры</a>
+          <li class="nav-link" sec:authorize="isAuthenticated() && hasRole('MANAGER')">
+            <a class="nav-link active" aria-current="page" href="/creditContracts/all">Мои текущие кредитные договоры</a>
           </li>
-          <!--                    <li sec:authorize="isAuthenticated() && hasRole('ADMIN')" class="nav-link">-->
-          <!--                        <a class="nav-link active" aria-current="page" href="/users/list">Пользователи</a>-->
-          <!--                    </li>-->
         </ul>
 
-        <!--                <form class="d-flex" sec:authorize="!isAuthenticated()">-->
-        <!--                    <a href="/login" class="btn btn-primary" role="button" aria-disabled="true">Войти</a>-->
-        <!--                </form>-->
-        <!--                <form class="d-flex" sec:authorize="isAuthenticated()">-->
-        <!--                    <a href="/logout" class="btn btn-primary" role="button" aria-disabled="true">Выйти</a>-->
-        <!--                </form>-->
+        <form class="d-flex" sec:authorize="!isAuthenticated()">
+            <a href="/login" class="btn btn-primary" role="button" aria-disabled="true">Войти</a>
+        </form>
+        <form class="d-flex" sec:authorize="isAuthenticated() && hasRole('USER')">
+          <a href="/users/profile" class="btn btn-primary" role="button" aria-disabled="true">Профиль</a>
+        </form>
+        <form class="d-flex" sec:authorize="isAuthenticated()">
+            <a href="/logout" class="btn btn-danger" role="button" aria-disabled="true">Выйти</a>
+        </form>
       </div>
     </div>
   </nav>

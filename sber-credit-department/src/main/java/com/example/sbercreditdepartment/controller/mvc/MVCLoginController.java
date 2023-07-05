@@ -14,9 +14,9 @@ public class MVCLoginController {
         return "login";
     }
 
-    @PostMapping
-    public String loginConfirmation() {
-        return "redirect:/main";
-    }
+//    @PostMapping
+//    public String loginConfirmation() {
+//        return "redirect:/main/about";
+//    }
 
 }

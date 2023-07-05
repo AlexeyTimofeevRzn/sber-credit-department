@@ -16,6 +16,7 @@ public class CreditContractDTO extends GenericDTO {
     private int credit;
 
     private int user;
+    private int request;
 
     private Date startDate;
 

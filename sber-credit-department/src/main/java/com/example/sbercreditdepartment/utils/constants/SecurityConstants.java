@@ -36,6 +36,10 @@ public class SecurityConstants {
 
     );
 
+    public static final List<String> USER_PERMISSIONS_LIST = List.of(
+        "/users/profile"
+    );
+
     public static final List<String> USER_WHITE_LIST = List.of(
             "/login",
             "/users/registration",

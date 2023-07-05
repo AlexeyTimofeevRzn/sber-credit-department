@@ -3,7 +3,9 @@ package com.example.sbercreditdepartment.controller.mvc;
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
 import com.example.sbercreditdepartment.dto.TwoDatesDTO;
 import com.example.sbercreditdepartment.service.CreditContractService;
+import com.example.sbercreditdepartment.service.userdetails.CustomUserDetails;
 import lombok.experimental.PackagePrivate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,8 @@ public class MVCCreditContractsController {
 
     @GetMapping("/all")
     public String getCreditContracts(Model model) {
-        model.addAttribute("contracts", creditContractService.getAllContracts());
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("contracts", creditContractService.getContractsOfManager(customUserDetails.getId()));
         return "creditContracts/viewAllContracts";
     }
 
@@ -45,7 +48,7 @@ public class MVCCreditContractsController {
     }
 
     @PostMapping("/save")
-    public String saveContract(@ModelAttribute("formCreditContract") CreditContractDTO creditContractDTO, Model model) {
+    public String saveContract(@ModelAttribute("formCreditContract") CreditContractDTO creditContractDTO) {
         creditContractService.saveContract(creditContractDTO);
         return "redirect:/credits/getAll";
     }

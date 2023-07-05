@@ -38,7 +38,7 @@ public class RequestService {
 
     public List<Request> getAllRequests() {
 //        return requestMapper.toDTOs(requestRepository.findAll());
-        return requestRepository.findAll();
+        return requestRepository.findRequestNotSigned();
     }
 
     // TODO: fix work with DTO
@@ -75,8 +75,9 @@ public class RequestService {
         // Тут сеттится максимальный долг по запросу
         request.setMaximumDebt(debtCalculator.calculateMaximumDebt(dto));
         // Заглушка (потом тут будет пользователь)
-        request.setUser(userRepository.findById(1).orElseThrow(RuntimeException::new));
+        request.setUser(userRepository.findById(dto.getUser()).orElseThrow(RuntimeException::new));
         request.setCredit(creditRepository.findById(dto.getCredit()).orElseThrow(RuntimeException::new));
+        request.setCreatedBy("USER");
         requestRepository.save(request);
     }
 }

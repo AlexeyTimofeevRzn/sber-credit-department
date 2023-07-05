@@ -75,6 +75,7 @@ public class MVCRequestController {
     public String signRequest(@PathVariable("id") int id, Model model) {
         Request request = requestService.getOneRequest(id);
         model.addAttribute("request", request);
+        model.addAttribute("manager", request.getManager());
         model.addAttribute("credit", request.getCredit());
         model.addAttribute("formCreditContract", new CreditContractDTO());
         return "creditContracts/newContract";
@@ -82,6 +83,8 @@ public class MVCRequestController {
 
     @PostMapping("/new")
     public String saveRequest(@ModelAttribute("formRequest") RequestDTO requestDTO) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        requestDTO.setUser(customUserDetails.getId());
         requestService.saveRequest(requestDTO);
         return "redirect:/credits/getAll";
     }

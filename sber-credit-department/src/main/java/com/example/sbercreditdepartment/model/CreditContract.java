@@ -29,6 +29,10 @@ public class CreditContract extends GenericModel {
     @Column(name = "start_date")
     private Date startDate;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "request_id", referencedColumnName = "id")
+    private Request request;
+
     @Column(name = "duration")
     private Integer duration;
 

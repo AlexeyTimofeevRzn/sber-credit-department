@@ -14,4 +14,6 @@ public interface CreditContractRepository extends GenericRepository<CreditContra
             value = "select * from credit_contracts where start_date between :start and :end")
     List<CreditContract> getCreditContractBetweenTwoDates(Date start, Date end);
 
+    List<CreditContract> getCreditContractByManagerId(int managerId);
+
 }

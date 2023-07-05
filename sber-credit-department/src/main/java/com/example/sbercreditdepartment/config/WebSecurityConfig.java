@@ -38,12 +38,13 @@ public class WebSecurityConfig {
                         .requestMatchers(CREDITS_PERMISSIONS_LIST.toArray(String[]::new)).hasAnyRole(USER)
                         .requestMatchers(ADMIN_PERMISSIONS_LIST.toArray(String[]::new)).hasAnyRole(ADMIN)
                         .requestMatchers(MANAGER_PERMISSIONS_LIST.toArray(String[]::new)).hasAnyRole(MANAGER)
+                        .requestMatchers(USER_PERMISSIONS_LIST.toArray(String[]::new)).hasAnyRole(USER)
                         .anyRequest().authenticated()
                 )
                 //Настройка для входа в систему
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/main")
+                        .defaultSuccessUrl("/main/about")
                         .permitAll()
                 )
                 .logout((logout) -> logout
