@@ -38,6 +38,14 @@
     <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" href="managers/all">Список менеджеров</a>
   </div>
 
+  <div sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+    <a href="/requests/overview/betweenTwoDates">Заявки за определенный период</a>
+  </div>
+
+  <div sec:authorize="isAuthenticated() && hasRole('ADMIN')">
+    <a href=href="/creditContracts/overview/betweenTwoDates">Кредитные договоры, заключенные за определенный период</a>
+  </div>
+
   <div>
   </div>
 </div>

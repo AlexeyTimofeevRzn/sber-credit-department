@@ -17,7 +17,7 @@
           <li class="nav-link">
             <a class="nav-link active" aria-current="page" href="/about">Сведения об организации</a>
           </li>
-          <li class="nav-link" sec:authorize="isAuthenticated() && hasRole('MANAGER')">
+          <li class="nav-link" sec:authorize="isAuthenticated() && (hasRole('MANAGER') || hasRole('ADMIN'))">
             <a class="nav-link active" aria-current="page" href="/requests/all">Кредитные заявки</a>
           </li>
           <li class="nav-link" sec:authorize="isAuthenticated() && hasRole('MANAGER')">

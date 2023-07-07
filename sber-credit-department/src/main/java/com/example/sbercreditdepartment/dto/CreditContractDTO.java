@@ -14,18 +14,12 @@ import java.sql.Date;
 public class CreditContractDTO extends GenericDTO {
 
     private int credit;
-
     private int user;
     private int request;
-
     private Date startDate;
-
     private int duration;
-
     private double monthlyPayment;
-
     private double currentDebt;
-
     private int manager;
 
 }

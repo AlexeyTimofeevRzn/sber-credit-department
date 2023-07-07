@@ -2,6 +2,7 @@ package com.example.sbercreditdepartment.service;
 
 import com.example.sbercreditdepartment.dto.CreditContractDTO;
 import com.example.sbercreditdepartment.dto.RequestDTO;
+import com.example.sbercreditdepartment.exception.UserNotFoundException;
 import com.example.sbercreditdepartment.model.Request;
 import com.example.sbercreditdepartment.model.User;
 import com.example.sbercreditdepartment.repository.RequestRepository;
@@ -23,16 +24,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final CreditContractMapper creditContractMapper;
-    private final RequestMapper requestMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RequestRepository requestRepository;
 
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, CreditContractMapper creditContractMapper, RequestMapper requestMapper, BCryptPasswordEncoder bCryptPasswordEncoder, RequestRepository requestRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, CreditContractMapper creditContractMapper, BCryptPasswordEncoder bCryptPasswordEncoder, RequestRepository requestRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.creditContractMapper = creditContractMapper;
-        this.requestMapper = requestMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.requestRepository = requestRepository;
     }
@@ -41,23 +40,31 @@ public class UserService {
         return userMapper.toDTO(userRepository.findById(id).orElseThrow(RuntimeException::new));
     }
 
-    public void create(UserDTO newObject) {
+    public User create(UserDTO newObject) {
         newObject.setRoleId(1);
-        newObject.setClientStatus(1);
         newObject.setPassword(bCryptPasswordEncoder.encode(newObject.getPassword()));
         newObject.setCreatedBy("REGISTRATION FORM");
         newObject.setCreatedWhen(LocalDateTime.now());
-        userRepository.save(userMapper.toEntity(newObject));
+        return userRepository.save(userMapper.toEntity(newObject));
     }
 
     public List<CreditContractDTO> getCreditContractsOfUser(int id) {
-        User user = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return creditContractMapper.toDTOs(user.getContracts());
     }
 
     public List<Request> getActiveRequestsOfUser(int id) {
         return requestRepository.findRequestByUserIdAndNotSigned(id);
     }
+
+    public User getUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
     public List<UserDTO> getAllClients() {
         return userMapper.toDTOs(userRepository.findAll());
     }

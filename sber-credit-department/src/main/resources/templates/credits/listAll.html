@@ -32,8 +32,8 @@
             <div th:each="credit : ${credits}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${credit.getName()}"></h5>
-                    <span class="badge bg-success" th:if="${!credit.isWithDeposit()}">Без залогов</span>
-                    <span class="badge bg-secondary" th:if="${credit.isWithDeposit()}">С залогом</span>
+                    <span class="badge bg-success" th:if="${credit.isWithStateSupport()}">C господдержкой</span>
+                    <span class="badge bg-secondary" th:if="${!credit.isWithStateSupport()}">Без господдержки</span>
                     <p class="card-text" th:text="${credit.getDescription()}"></p>
                     <a th:href="'/credits/' + ${credit.getId()}" class="btn btn-primary">Подробнее</a>
                     <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" th:href="'/credits/delete/' + ${credit.getId()}" class="btn btn-danger">Удалить кредитное предложение</a>

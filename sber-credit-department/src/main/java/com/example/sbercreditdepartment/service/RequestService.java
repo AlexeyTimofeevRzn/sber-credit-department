@@ -10,7 +10,7 @@ import com.example.sbercreditdepartment.model.Credit;
 import com.example.sbercreditdepartment.repository.CreditRepository;
 import com.example.sbercreditdepartment.repository.RequestRepository;
 import com.example.sbercreditdepartment.repository.UserRepository;
-import com.example.sbercreditdepartment.utils.logic.DebtCalculator;
+import com.example.sbercreditdepartment.utils.logic.DebtAndPaymentCalculator;
 import com.example.sbercreditdepartment.utils.mapper.ManagerMapper;
 import com.example.sbercreditdepartment.utils.mapper.RequestMapper;
 import org.springframework.stereotype.Service;
@@ -25,15 +25,15 @@ public class RequestService {
     private final UserRepository userRepository;
     private final RequestMapper requestMapper;
     private final ManagerMapper managerMapper;
-    private final DebtCalculator debtCalculator;
+    private final DebtAndPaymentCalculator debtAndPaymentCalculator;
 
-    public RequestService(RequestRepository requestRepository, CreditRepository creditRepository, UserRepository userRepository, RequestMapper requestMapper, ManagerMapper managerMapper, DebtCalculator debtCalculator) {
+    public RequestService(RequestRepository requestRepository, CreditRepository creditRepository, UserRepository userRepository, RequestMapper requestMapper, ManagerMapper managerMapper, DebtAndPaymentCalculator debtAndPaymentCalculator) {
         this.requestRepository = requestRepository;
         this.creditRepository = creditRepository;
         this.userRepository = userRepository;
         this.requestMapper = requestMapper;
         this.managerMapper = managerMapper;
-        this.debtCalculator = debtCalculator;
+        this.debtAndPaymentCalculator = debtAndPaymentCalculator;
     }
 
     public List<Request> getAllRequests() {
@@ -73,7 +73,7 @@ public class RequestService {
             request.setRequestStatus(RequestStatus.CONSIDERED);
         }
         // Тут сеттится максимальный долг по запросу
-        request.setMaximumDebt(debtCalculator.calculateMaximumDebt(dto));
+        request.setMaximumDebt(debtAndPaymentCalculator.calculateMaximumDebt(dto));
         // Заглушка (потом тут будет пользователь)
         request.setUser(userRepository.findById(dto.getUser()).orElseThrow(RuntimeException::new));
         request.setCredit(creditRepository.findById(dto.getCredit()).orElseThrow(RuntimeException::new));

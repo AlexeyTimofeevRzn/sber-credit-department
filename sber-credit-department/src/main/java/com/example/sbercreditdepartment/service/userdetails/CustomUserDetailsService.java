@@ -4,6 +4,7 @@ import com.example.sbercreditdepartment.exception.AuthenticationException;
 import com.example.sbercreditdepartment.model.Manager;
 import com.example.sbercreditdepartment.repository.ManagerRepository;
 import com.example.sbercreditdepartment.utils.constants.UserRolesConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -55,6 +57,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
                     return new CustomUserDetails(manager.getPassword(), authorities, username, manager.getId());
                 } else {
+                    log.error("Ошибка аутентификации: пользователь с логином: " + username + " не найден");
                     throw new AuthenticationException();
                 }
             }

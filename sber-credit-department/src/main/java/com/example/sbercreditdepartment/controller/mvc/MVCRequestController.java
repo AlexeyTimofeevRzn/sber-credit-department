@@ -10,12 +10,15 @@ import com.example.sbercreditdepartment.service.CreditService;
 import com.example.sbercreditdepartment.service.ManagerService;
 import com.example.sbercreditdepartment.service.RequestService;
 import com.example.sbercreditdepartment.service.userdetails.CustomUserDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 @Controller
+@Slf4j
 @RequestMapping("/requests")
 public class MVCRequestController {
 
@@ -49,7 +52,12 @@ public class MVCRequestController {
     }
 
     @PostMapping("/overview/betweenTwoDates")
-    public String getRequestsBetweenTwoDates(@ModelAttribute("twoDatesDTO") TwoDatesDTO dto, Model model) {
+    public String getRequestsBetweenTwoDates(@ModelAttribute("twoDatesDTO") TwoDatesDTO dto, Model model,
+                                             BindingResult bindingResult) {
+        if (dto.getStartDate().after(dto.getEndDate())) {
+            bindingResult.rejectValue("startDate", "error.startDate", "Дата начала периода должна быть раньше даты конца");
+            return "overview/requestsBetweenTwoDates";
+        }
         model.addAttribute("start", dto.getStartDate());
         model.addAttribute("end", dto.getEndDate());
         model.addAttribute("requests", requestService.getRequestsBetweenTwoDates(dto));
@@ -62,12 +70,15 @@ public class MVCRequestController {
         CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ManagerDTO manager = managerService.getManager(customUserDetails.getId());
         requestService.acceptRequest(request, manager);
+        log.info("Запрос одобрен: " + request.toString());
         return "redirect:/requests/all";
     }
 
     @GetMapping("/decline/{id}")
     public String declineRequest(@PathVariable("id") int id) {
-        requestService.declineRequest(requestService.getOneRequest(id));
+        Request request = requestService.getOneRequest(id);
+        requestService.declineRequest(request);
+        log.info("Запрос отклонен: " + request.toString());
         return "redirect:/requests/all";
     }
 
@@ -86,6 +97,7 @@ public class MVCRequestController {
         CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         requestDTO.setUser(customUserDetails.getId());
         requestService.saveRequest(requestDTO);
+        log.info("Сохранен запрос: " + requestDTO.toString());
         return "redirect:/credits/getAll";
     }
 }

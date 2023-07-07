@@ -25,6 +25,9 @@
     <form method="POST" th:action="@{/requests/overview/betweenTwoDates}" th:object="${twoDatesDTO}">
         <label for="startDate">Начальная дата:</label>
         <input type="date" name="startDate" id="startDate">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('startDate')}">
+            <p th:errors="*{startDate}"></p>
+        </div>
 
         <label for="endDate">Конечная дата:</label>
         <input type="date" name="endDate" id="endDate">

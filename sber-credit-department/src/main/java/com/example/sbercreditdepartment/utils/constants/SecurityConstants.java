@@ -33,7 +33,7 @@ public class SecurityConstants {
     );
 
     public static final List<String> MANAGER_PERMISSIONS_LIST = List.of(
-
+        "/creditContracts/all"
     );
 
     public static final List<String> USER_PERMISSIONS_LIST = List.of(

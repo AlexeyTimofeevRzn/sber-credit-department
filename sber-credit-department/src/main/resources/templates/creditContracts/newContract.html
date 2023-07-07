@@ -36,7 +36,7 @@
         <div class="col-md">
             <div class="form-floating">
                 <label for="currentDebt"></label>
-                <input name="currentDebt" type="range" class="form-range" id="currentDebt" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" th:step="(${request.getMaximumDebt()} - ${credit.getMinimalSum()}) / 15">
+                <input name="currentDebt" type="range" class="form-range" id="currentDebt" th:min="${credit.getMinimalSum()}" th:max="${request.getMaximumDebt()}" th:step="(${request.getMaximumDebt()} - ${credit.getMinimalSum()}) / 40">
                 <p>Сумма кредита: <span id="currentValue"></span></p>
             </div>
         </div>

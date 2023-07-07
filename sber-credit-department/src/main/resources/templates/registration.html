@@ -43,6 +43,9 @@
                     <input name="firstName" type="text" class="form-control" id="firstName" placeholder="Введите имя" required>
                     <label for="firstName">Имя</label>
                     <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}">
+                        <p th:errors="*{firstName}"></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md">
@@ -50,6 +53,9 @@
                     <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Введите фамилию" required>
                     <label for="lastName">Фамилия</label>
                     <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}">
+                        <p th:errors="*{lastName}"></p>
+                    </div>
                 </div>
             </div>
             <div class="col-md">

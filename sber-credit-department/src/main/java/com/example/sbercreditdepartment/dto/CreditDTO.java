@@ -23,6 +23,6 @@ public class CreditDTO extends GenericDTO {
 
     private Integer maxDuration;
 
-    private boolean isWithDeposit;
+    private boolean isWithStateSupport;
 
 }

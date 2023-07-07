@@ -29,9 +29,9 @@ public class CreditService {
         return creditMapper.toDTO(creditRepository.findById(id).orElseThrow(RuntimeException::new));
     }
 
-    public void softDelete(int id) {
+    public Credit softDelete(int id) {
         Credit credit = creditRepository.findById(id).orElseThrow(CreditNotFoundException::new);
         credit.setDeleted(true);
-        creditRepository.save(credit);
+        return creditRepository.save(credit);
     }
 }

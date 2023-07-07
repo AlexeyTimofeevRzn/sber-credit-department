@@ -17,12 +17,12 @@ public abstract class GenericModel {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "default_generator")
-    private Integer id;
+    protected Integer id;
 
     @Column(name = "created_when")
-    private LocalDateTime createdWhen;
+    protected LocalDateTime createdWhen;
 
     @Column(name = "created_by")
-    private String createdBy;
+    protected String createdBy;
 
 }

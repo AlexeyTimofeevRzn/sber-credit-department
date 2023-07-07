@@ -34,8 +34,8 @@ public class Credit extends GenericModel {
     @Column(name = "max_duration")
     private Integer maxDuration;
 
-    @Column(name = "is_with_deposit")
-    private boolean isWithDeposit;
+    @Column(name = "is_with_state_support")
+    private boolean isWithStateSupport;
 
     @Column(name = "is_deleted")
     private boolean isDeleted;

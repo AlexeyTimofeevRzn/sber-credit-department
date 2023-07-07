@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class GenericDTO {
 
-    private Integer id;
+    protected Integer id;
 
-    private String createdBy = "Admin";
+    protected String createdBy = "Admin";
 
-    private LocalDateTime createdWhen = LocalDateTime.now();
+    protected LocalDateTime createdWhen = LocalDateTime.now();
 
 }

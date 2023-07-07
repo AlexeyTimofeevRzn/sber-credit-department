@@ -1,5 +1,6 @@
 package com.example.sbercreditdepartment.model;
 
+import com.example.sbercreditdepartment.utils.constants.UserRolesConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,12 +51,17 @@ public class User extends GenericModel {
             foreignKey = @ForeignKey(name = "FK_USERS_ROLE"))
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "client_status",
-            foreignKey = @ForeignKey(name = "FK_USERS_CLIENT_STATUS"))
-    private ClientStatus clientStatus;
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<CreditContract> contracts;
+
+    public User(int id, String login, String email, String firstName, String lastName, List<CreditContract> contracts) {
+        this.id = id;
+        this.login = login;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.createdWhen = LocalDateTime.now();
+        this.contracts = contracts;
+    }
 
 }

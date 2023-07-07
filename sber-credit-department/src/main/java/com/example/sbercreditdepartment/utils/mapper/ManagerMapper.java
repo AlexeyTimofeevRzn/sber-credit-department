@@ -1,11 +1,8 @@
 package com.example.sbercreditdepartment.utils.mapper;
 
 import com.example.sbercreditdepartment.dto.ManagerDTO;
-import com.example.sbercreditdepartment.dto.UserDTO;
 import com.example.sbercreditdepartment.model.GenericModel;
 import com.example.sbercreditdepartment.model.Manager;
-import com.example.sbercreditdepartment.model.User;
-import com.example.sbercreditdepartment.repository.ClientStatusRepository;
 import com.example.sbercreditdepartment.repository.CreditContractRepository;
 import com.example.sbercreditdepartment.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
