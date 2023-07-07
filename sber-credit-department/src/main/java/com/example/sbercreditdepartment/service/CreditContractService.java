@@ -31,9 +31,9 @@ public class CreditContractService {
         this.debtAndPaymentCalculator = debtAndPaymentCalculator;
     }
 
-    public List<CreditContract> getAllContracts() {
-        return creditContractRepository.findAll();
-    }
+//    public List<CreditContract> getAllContracts() {
+//        return creditContractRepository.findAll();
+//    }
 
     public List<CreditContract> getContractsOfManager(int managerId) {
         return creditContractRepository.getCreditContractByManagerId(managerId);
@@ -56,5 +56,4 @@ public class CreditContractService {
         dto.setStartDate(Date.valueOf(LocalDate.now()));
         creditContractRepository.save(creditContractMapper.toEntity(dto));
     }
-
 }

@@ -47,15 +47,15 @@ public class RequestService {
         return requestRepository.findById(id).orElseThrow(RequestNotFoundException::new);
     }
 
-    public void acceptRequest(Request request, ManagerDTO manager) {
+    public Request acceptRequest(Request request, ManagerDTO manager) {
         request.setManager(managerMapper.toEntity(manager));
         request.setRequestStatus(RequestStatus.ACCEPTED);
-        requestRepository.save(request);
+        return requestRepository.save(request);
     }
 
-    public void declineRequest(Request request) {
+    public Request declineRequest(Request request) {
         request.setRequestStatus(RequestStatus.DECLINED);
-        requestRepository.save(request);
+        return requestRepository.save(request);
     }
 
     public List<Request> getRequestsBetweenTwoDates(TwoDatesDTO dto) {
